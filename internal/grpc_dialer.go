@@ -81,6 +81,7 @@ func dial(params dialParameters) (*grpc.ClientConn, error) {
 
 	return grpc.Dial(params.HostPort,
 		grpcSecurityOptions,
+		grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(128*1024*1024)),
 		grpc.WithChainUnaryInterceptor(params.RequiredInterceptors...),
 		grpc.WithDefaultServiceConfig(params.DefaultServiceConfig),
 		grpc.WithConnectParams(cp),
